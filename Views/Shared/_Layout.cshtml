@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @Html.Raw(TempData["msg"])
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BiblioTechA</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            background-color: #f9f9f9;
+        }
+
+        #check {
+            display: none;
+        }
+
+        #icone {
+            cursor: pointer;
+            padding: 15px;
+            position: absolute;
+            z-index: 2;
+        }
+
+        .barra {
+            background-color: #333;
+            height: 100%;
+            width: 300px;
+            position: absolute;
+            transition: all .2s linear;
+            left: -300px;
+            z-index: 1;
+        }
+
+        nav {
+            width: 100%;
+            position: absolute;
+            top: 60px;
+        }
+
+            nav a {
+                text-decoration: none;
+            }
+
+        .link {
+            background-color: #494950;
+            padding: 20px;
+            font-family: 'Arial';
+            font-size: 12pt;
+            transition: all .2s linear;
+            color: #f4f4f9;
+            border-bottom: 2px solid #222;
+            opacity: 0;
+            margin-top: 200px;
+        }
+
+            .link:hover {
+                background-color: #050542;
+            }
+
+        #check:checked ~ .barra {
+            transform: translateX(300px);
+        }
+
+            #check:checked ~ .barra nav a .link {
+                opacity: 1;
+                margin-top: 0;
+                transition-delay: .2s;
+            }
+
+        .container {
+            padding-top: 10px;
+        }
+    </style>
+
+    @if ((await AuthorizationService.AuthorizeAsync(User, "alluserpolicy")).Succeeded)
+    {
+        <header>
+
+        <input type="checkbox" id="check" />
+        <label id="icone" for="check"><img src="~/images/icone.png" /></label>
+
+        <div class="barra">
+            <nav>
+
+                @if ((await AuthorizationService.AuthorizeAsync(User, "userpolicy")).Succeeded)
+                {
+                    <a asp-area="" asp-controller="Books" asp-action="Index"><div class="link">Livros</div></a>
+                    <a asp-area="" asp-controller="Books" asp-action="UserReservation"><div class="link">Reservas</div></a>
+                }
+                @if ((await AuthorizationService.AuthorizeAsync(User, "adminmanagerpolicy")).Succeeded)
+                {
+                    <a asp-area="" asp-controller="Books" asp-action="Index"><div class="link">Livros</div></a>
+                    <a asp-area="" asp-controller="Books" asp-action="ReleaseReservation"><div class="link">Liberar reservas</div></a>
+                    <a asp-area="" asp-controller="Books" asp-action="ReturnReservation"><div class="link">Devoluções</div></a>
+                    <a asp-area="" asp-controller="Books" asp-action="ShowAllUsers"><div class="link">Listar usuários</div></a>
+                }
+                @if ((await AuthorizationService.AuthorizeAsync(User, "managerpolicy")).Succeeded)
+                {
+                    <a asp-area="" asp-controller="Books" asp-action="AllBookingHistory"><div class="link">Histórico de reservas</div></a>
+                }
+
+                <partial name="_LoginPartial" />
+            </nav>
+        </div>
+
+        </header>
+    }
+    
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

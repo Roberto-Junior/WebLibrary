@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BiblioTechA.Models.Book>
+@{
+    ViewData["Title"] = "Liberar reservas";
+}
+
+<button type="button" class="btn btn-secondary btn-lg btn-block">Liberar reservas</button>
+<br />
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                Solicitante
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <form asp-action="ReleaseReservation" asp-route-id="@item.Id">
+                        <input type="submit" class="btn btn-outline-success" value="Liberar Reserva" />
+                    </form>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WhoReserved)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@if(Model.Count() == 0)
+{
+    <br /><br />
+    <div class="alert alert-primary" role="alert">
+        Nenhum livro foi reservado.
+    </div>
+}

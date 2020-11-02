@@ -1,0 +1,44 @@
+﻿@model BiblioTechA.Models.Book
+@{
+    ViewData["Title"] = "ConfirmReservation";
+}
+
+
+<br />
+<br />
+<br />
+<br />
+<form asp-action="ConfirmReservation">
+    <div align="center">
+        <h2>Confirmar reserva do livro "@Html.DisplayFor(model => model.Title)"</h2>
+        <input type="submit" class="btn btn-success" value="Confirmar" />
+    </div>
+</form>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div align="center">
+    <div class="card text-white bg-info mb-3" style="max-width: 35rem;">
+        <div class="card-header">Importante</div>
+        <div class="card-body">
+            <p class="card-text">Sua reserva será válida por 10 minutos. Após esse prazo a reserva será cancelada e será necessário solicitar novamente.</p>
+        </div>
+    </div>
+</div>
+
+<br />
+<div align="center">
+    <a type="button" class="btn btn-light" asp-action="BookList">Voltar</a>
+</div>
+
+
+
+

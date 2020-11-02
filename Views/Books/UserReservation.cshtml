@@ -1,0 +1,95 @@
+﻿@using BiblioTechA.Models
+@model UserReservedAndHistoricalBooks
+@{
+    ViewData["Title"] = "UserReservation";
+}
+
+<button type="button" class="btn btn-secondary btn-lg btn-block">Reservas</button>
+<br />
+<br />
+
+<h1>Reserva Atual</h1>
+
+<form asp-action="UserReservation">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Título
+                </th>
+                <th>
+                    Autor
+                </th>
+                <th>
+                    Data da reserva
+                </th>
+                <th>
+                    Reserva
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.actualReservedBook)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReservationDateRelease)
+                    </td>
+                    <td>
+                        <input class="btn btn-outline-danger" value="Cancelar" type="submit" asp-route-id="@item.Id" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+<br />
+<br />
+<br />
+<br />
+<h1>Histórico de reservas</h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Título
+            </th>
+            <th>
+                Autor
+            </th>
+            <th>
+                Data da retirada
+            </th>
+            <th>
+                Data da devolução
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.historicalReservedBook)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationDateRelease)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationDateReturn)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

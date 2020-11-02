@@ -1,0 +1,102 @@
+﻿@model BiblioTechA.Models.ManagerBookFilterViewModel
+@{
+    ViewData["Title"] = "Histórico de reservas";
+}
+
+<button type="button" class="btn btn-secondary btn-lg btn-block">Histórico de reservas</button>
+
+<br />
+<br />
+<form asp-controller="Books" asp-action="AllBookingHistory" method="get">
+    <p>
+        Filtros:
+        <br />
+        <select asp-for="BookWhoReserved" asp-items="Model.WhoReserved">
+            <option value="">Todos que reservaram</option>
+        </select>
+        <select asp-for="BookWhoReleased" asp-items="Model.WhoReleased">
+            <option value="">Todos que liberaram reserva</option>
+        </select>
+        <select asp-for="BookWhoReceivedReturn" asp-items="Model.WhoReceivedReturn">
+            <option value="">Todos que receberam devolução</option>
+        </select>
+
+        <br /><br />
+        <select asp-for="BookReserveDay" asp-items="Model.ReserveDay">
+            <option value="">Dia da Reserva</option>
+        </select>
+        <select asp-for="BookReserveMonth" asp-items="Model.ReserveMonth">
+            <option value="">Mês da Reserva</option>
+        </select>
+        <select asp-for="BookReserveYear" asp-items="Model.ReserveYear">
+            <option value="">Ano da Reserva</option>
+        </select>
+
+        
+        Título do livro: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Procurar" />
+
+        <a type="button" class="btn btn-light" asp-controller="Books" asp-action="AllBookingHistory">
+            <span class="badge badge-light">REMOVER FILTROS</span>
+        </a>
+    </p>
+</form>
+<br />
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Livro
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books[0].WhoReserved)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books[0].WhoReleased)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books[0].WhoReceivedReturn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books[0].ReservationDateRelease)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books[0].ReservationDateReturn)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WhoReserved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WhoReleased)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WhoReceivedReturn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationDateRelease)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationDateReturn)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Books.Count() == 0)
+{
+    <br />
+    <br />
+    <div class="alert alert-primary" role="alert">
+        Nenhum item encontrado.
+    </div>
+}

@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BiblioTechA.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a asp-area="Identity" asp-page="/Account/Manage/Index"><div class="link">Conta</div></a>
+    <a asp-area="Identity" asp-page="/Account/Logout"><div class="link">Sair</div></a>
+}

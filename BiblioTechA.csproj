@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-BiblioTechA-AC8446F7-8635-462D-80E9-5A7F3E5853C2</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200923145954_ChangeUser.cs" />
+    <Compile Remove="Data\Migrations\20200923145954_ChangeUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200924170951_UserReservation.cs" />
+    <Compile Remove="Data\Migrations\20200924170951_UserReservation.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200927015652_BookQuantity.cs" />
+    <Compile Remove="Data\Migrations\20200927015652_BookQuantity.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200927020051_Quantity.cs" />
+    <Compile Remove="Data\Migrations\20200927020051_Quantity.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc.pt-br" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
+  </ItemGroup>
+
+</Project>
