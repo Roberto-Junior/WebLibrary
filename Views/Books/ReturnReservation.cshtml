@@ -1,9 +1,9 @@
-﻿@model IEnumerable<BiblioTechA.Models.Book>
+﻿@model IEnumerable<BiblioTechA.Models.BookAuthorGenreForView>
 @{
-    ViewData["Title"] = "Devolução";
+    ViewData["Title"] = "Devoluções";
 }
 
-<button type="button" class="btn btn-secondary btn-lg btn-block">Devolução</button>
+<button type="button" class="btn btn-secondary btn-lg btn-block">Devoluções</button>
 <br />
 <br />
 <table class="table">
@@ -32,10 +32,10 @@
                 </form>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(model => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WhoReserved)
+                @Html.DisplayFor(model => item.WhoReserved)
             </td>
             <td>
                 @Html.DisplayFor(model => item.ReservationDateRelease)

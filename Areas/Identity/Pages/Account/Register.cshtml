@@ -1,5 +1,6 @@
 ﻿@page
-
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 @model RegisterModel
 @{
     ViewData["Title"] = "Registrar";
@@ -46,12 +47,21 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label>Tipo de conta</label>
-                <select asp-for="Input.Name" class="form-control" asp-items='new SelectList(roles,"Id","Name")'>
-                </select>
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
-            </div>
+            @*<div class="form-group">
+                    <label>Tipo de conta</label>
+                    <select asp-for="Input.Name" class="form-control" asp-items='new SelectList(roles,"Id","Name")'>
+                    </select>
+                    <span asp-validation-for="Input.Name" class="text-danger"></span>
+                </div>*@
+            @if ((await AuthorizationService.AuthorizeAsync(User, "managerpolicy")).Succeeded)
+            {
+                <div class="form-group">
+                    <label>Tipo de conta</label>
+                    <select asp-for="Input.Name" class="form-control" asp-items='new SelectList(roles,"Id","Name")'>
+                    </select>
+                    <span asp-validation-for="Input.Name" class="text-danger"></span>
+                </div>
+            }
             <br />
             <div>
                 <button type="submit" class="btn btn-primary">Criar conta</button>

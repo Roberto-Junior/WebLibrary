@@ -1,4 +1,4 @@
-﻿@model BiblioTechA.Models.Book
+﻿@model BiblioTechA.Models.BookAuthorGenreForView
 
 @{
     ViewData["Title"] = "Delete";
@@ -42,6 +42,11 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
     </dl>
+
+    <div class="alert alert-danger" role="alert">
+        ATENÇÃO: Ao deletar o livro todo o seu histórico de reservas também será deletado!
+    </div>
+    <br /><br />
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />

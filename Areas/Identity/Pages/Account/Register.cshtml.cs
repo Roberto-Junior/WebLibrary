@@ -73,7 +73,7 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required(ErrorMessage = "Campo obrigatório.")]
-            [StringLength(100, ErrorMessage = "A {0} tem que ter entre {2} a {1} dígitos.", MinimumLength = 6)]
+            [StringLength(20, ErrorMessage = "A {0} deve possuir de {2} a {1} dígitos.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Senha")]
             public string Password { get; set; }
@@ -95,6 +95,10 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            if (Input.Name == null)
+                Input.Name = "1";
+
             var role = _roleManager.FindByIdAsync(Input.Name).Result;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -110,6 +114,7 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
                     EmailConfirmed = true 
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -140,6 +145,13 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
                 }
                 foreach (var error in result.Errors)
                 {
+                    //código add
+                    if(error.Code == "DuplicateUserName")
+                    {
+                        error.Description = "O Email já está sendo utilizado por outra conta.";
+                    }
+                    //
+
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }

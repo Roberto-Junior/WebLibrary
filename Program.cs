@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BiblioTechA.Models;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -23,9 +19,8 @@ namespace BiblioTechA
 
                 try
                 {
-                    SeedRole.Initialize(services);
+                    SeedRoleAndUser.Initialize(services);
                     SeedBook.Initialize(services);
-                    SeedBookReservationHistory.Initialize(services);
                 }
                 catch (Exception ex)
                 {

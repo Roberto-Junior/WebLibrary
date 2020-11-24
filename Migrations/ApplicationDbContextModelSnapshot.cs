@@ -4,16 +4,14 @@ using BiblioTechA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BiblioTechA.Data.Migrations
+namespace BiblioTechA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201002173747_BookingHistory")]
-    partial class BookingHistory
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,6 +96,36 @@ namespace BiblioTechA.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("BiblioTechA.Models.ApplicationUserBook", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApplicationUserId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("UserBooks");
+                });
+
+            modelBuilder.Entity("BiblioTechA.Models.ApplicationUserBookHistory", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BookReservationHistoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApplicationUserId", "BookReservationHistoryId");
+
+                    b.HasIndex("BookReservationHistoryId");
+
+                    b.ToTable("UserBooksHistory");
+                });
+
             modelBuilder.Entity("BiblioTechA.Models.Book", b =>
                 {
                     b.Property<int>("Id")
@@ -105,15 +133,7 @@ namespace BiblioTechA.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -123,9 +143,6 @@ namespace BiblioTechA.Data.Migrations
                     b.Property<DateTime>("ReservationDateRelease")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ReservationDateReturn")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Reserved")
                         .HasColumnType("nvarchar(max)");
 
@@ -133,18 +150,12 @@ namespace BiblioTechA.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("WhoReleased")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WhoReserved")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("BiblioTechA.Models.BookReservationHistory", b =>
+            modelBuilder.Entity("BiblioTechA.Models.BookAuthor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,9 +166,48 @@ namespace BiblioTechA.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.ToTable("BookAuthor");
+                });
+
+            modelBuilder.Entity("BiblioTechA.Models.BookGenre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.ToTable("BookGenre");
+                });
+
+            modelBuilder.Entity("BiblioTechA.Models.BookReservationHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ReservationDateRelease")
                         .HasColumnType("datetime2");
@@ -166,22 +216,20 @@ namespace BiblioTechA.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WhoReceivedReturn")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WhoReleased")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WhoReserved")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookId");
 
                     b.ToTable("BookReservationHistory");
                 });
@@ -315,6 +363,62 @@ namespace BiblioTechA.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BiblioTechA.Models.ApplicationUserBook", b =>
+                {
+                    b.HasOne("BiblioTechA.Data.ApplicationUser", "ApplicationUser")
+                        .WithMany("UserBooks")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BiblioTechA.Models.Book", "Book")
+                        .WithMany("UserBooks")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BiblioTechA.Models.ApplicationUserBookHistory", b =>
+                {
+                    b.HasOne("BiblioTechA.Data.ApplicationUser", "ApplicationUser")
+                        .WithMany("UsersBookHistory")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BiblioTechA.Models.BookReservationHistory", "BookReservationHistory")
+                        .WithMany("UsersBookHistory")
+                        .HasForeignKey("BookReservationHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BiblioTechA.Models.BookAuthor", b =>
+                {
+                    b.HasOne("BiblioTechA.Models.Book", null)
+                        .WithOne("BookAuthor")
+                        .HasForeignKey("BiblioTechA.Models.BookAuthor", "BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BiblioTechA.Models.BookGenre", b =>
+                {
+                    b.HasOne("BiblioTechA.Models.Book", null)
+                        .WithOne("BookGenre")
+                        .HasForeignKey("BiblioTechA.Models.BookGenre", "BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BiblioTechA.Models.BookReservationHistory", b =>
+                {
+                    b.HasOne("BiblioTechA.Models.Book", "Book")
+                        .WithMany("BooksReservationHistory")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

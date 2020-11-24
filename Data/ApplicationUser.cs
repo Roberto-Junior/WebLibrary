@@ -2,16 +2,17 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BiblioTechA.Data
 {
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+            UserBooks = new List<ApplicationUserBook>();
+            UsersBookHistory = new List<ApplicationUserBookHistory>();
+        }
         [PersonalData]
         [Column(TypeName ="nvarchar(100)")]
         public string FirstName { get; set; }
@@ -25,5 +26,8 @@ namespace BiblioTechA.Data
 
         [PersonalData]
         public bool AskedReservation { get; set; }
+        public List<ApplicationUserBookHistory> UsersBookHistory { get; set; }
+
+        public List<ApplicationUserBook> UserBooks { get; set; }
     }
 }

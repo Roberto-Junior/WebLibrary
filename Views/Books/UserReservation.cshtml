@@ -8,17 +8,14 @@
 <br />
 <br />
 
-<h1>Reserva Atual</h1>
+<center><h1>RESERVA ATUAL</h1></center>
 
 <form asp-action="UserReservation">
     <table class="table">
         <thead class="thead-dark">
             <tr>
                 <th>
-                    Título
-                </th>
-                <th>
-                    Autor
+                    Livro
                 </th>
                 <th>
                     Data da reserva
@@ -29,23 +26,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.actualReservedBook)
-            {
-                <tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.actualReservedBook.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.actualReservedBook.ReservationDateRelease)
+                </td>
+                @if(Model.actualReservedBook != null)
+                {
                     <td>
-                        @Html.DisplayFor(modelItem => item.Title)
+                        <input class="btn btn-outline-danger" value="Cancelar" type="submit" asp-route-id="@Model.actualReservedBook.Id" />
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Author)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReservationDateRelease)
-                    </td>
-                    <td>
-                        <input class="btn btn-outline-danger" value="Cancelar" type="submit" asp-route-id="@item.Id" />
-                    </td>
-                </tr>
-            }
+                }
+            </tr>
         </tbody>
     </table>
 </form>
@@ -54,16 +48,13 @@
 <br />
 <br />
 <br />
-<h1>Histórico de reservas</h1>
+<center><h1>HISTÓRICO DE RESERVAS</h1></center>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
             <th>
-                Título
-            </th>
-            <th>
-                Autor
+                Livro
             </th>
             <th>
                 Data da retirada
@@ -79,9 +70,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ReservationDateRelease)

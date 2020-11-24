@@ -34,13 +34,13 @@ namespace BiblioTechA.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Senha atual é necessária.")]
             [DataType(DataType.Password)]
             [Display(Name = "Senha atual")]
             public string OldPassword { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "A {0} tem que ter entre {2} a {1} dígitos.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Nova senha é necessária.")]
+            [StringLength(20, ErrorMessage = "A {0} deve possuir de {2} a {1} dígitos.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Nova senha")]
             public string NewPassword { get; set; }
@@ -86,6 +86,13 @@ namespace BiblioTechA.Areas.Identity.Pages.Account.Manage
             {
                 foreach (var error in changePasswordResult.Errors)
                 {
+                    //código add
+                    if (error.Code == "PasswordMismatch")
+                    {
+                        error.Description = "Senha atual incorreta.";
+                    }
+                    //
+
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
                 return Page();

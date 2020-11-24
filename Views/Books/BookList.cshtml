@@ -36,10 +36,10 @@
                 @Html.DisplayNameFor(model => model.Books[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Books[0].Author)
+                @Html.DisplayNameFor(model => model.Books[0].BookAuthor.Author)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Books[0].Genre)
+                @Html.DisplayNameFor(model => model.Books[0].BookGenre.Genre)
             </th>
             <th></th>
         </tr>
@@ -55,10 +55,10 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Author)
+                    @Html.DisplayFor(modelItem => item.BookAuthor.Author)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Genre)
+                    @Html.DisplayFor(modelItem => item.BookGenre.Genre)
                 </td>
                 <td>
                     <a role="button" class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>

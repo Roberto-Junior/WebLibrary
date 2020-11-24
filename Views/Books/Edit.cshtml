@@ -1,4 +1,4 @@
-﻿@model BiblioTechA.Models.Book
+﻿@model BiblioTechA.Models.BookAuthorGenreForView
 
 @{
     ViewData["Title"] = "Edit";
@@ -38,27 +38,6 @@
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input type="hidden" class="form-check-input" asp-for="Reserved" />
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="ReservationDateRelease" class="form-control" />
-                <span asp-validation-for="ReservationDateRelease" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="ReservationDateReturn" class="form-control" />
-                <span asp-validation-for="ReservationDateReturn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="WhoReserved" class="form-control" />
-                <span asp-validation-for="WhoReserved" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="WhoReleased" class="form-control" />
-                <span asp-validation-for="WhoReleased" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />

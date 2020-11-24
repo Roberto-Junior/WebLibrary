@@ -1,19 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using BiblioTechA.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BiblioTechA.Models;
-using Microsoft.AspNetCore.Localization;
 
 namespace BiblioTechA
 {
@@ -41,7 +33,8 @@ namespace BiblioTechA
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+
+           services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                  {
                      options.SignIn.RequireConfirmedAccount = false;
                      options.Password.RequireDigit = false;
