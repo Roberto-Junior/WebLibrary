@@ -6,6 +6,7 @@ namespace BiblioTechA.Models
     public class BookAuthorGenreForView
     {
         public int Id { get; set; }
+        public int BookId { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório.")]
         [Display(Name = "Título")]

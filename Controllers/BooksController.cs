@@ -163,7 +163,7 @@ namespace BiblioTechA.Controllers
 
             var bookForView = new BookAuthorGenreForView
             {
-                Id = book.Id,
+                BookId = book.Id,
                 Title = book.Title,
                 Author = book.BookAuthor.Author,
                 Genre = book.BookGenre.Genre,
