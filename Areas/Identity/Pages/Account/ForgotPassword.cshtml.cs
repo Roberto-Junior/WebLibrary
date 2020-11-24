@@ -64,8 +64,8 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                //return RedirectToPage("./ForgotPasswordConfirmation");
-                return RedirectToPage("./ResetPassword");              
+                TempData["UserEmail"] = Input.Email;
+                return RedirectToPage("./ResetPassword");
             }
 
             return Page();

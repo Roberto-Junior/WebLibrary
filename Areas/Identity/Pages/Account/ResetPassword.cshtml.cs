@@ -48,7 +48,7 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
         }
 
         //public IActionResult OnGet(string code = null)
-        public void Get(string code = null)
+        public IActionResult OnGet(string code = null) //public void Get(string code = null) 
         {
             //if (code == null)
             //{
@@ -62,6 +62,11 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
             //    };
             //    return Page();
             //}
+            Input = new InputModel
+            {
+                Email = TempData["UserEmail"].ToString()
+            };
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
