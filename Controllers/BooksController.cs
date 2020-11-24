@@ -749,7 +749,7 @@ namespace BiblioTechA.Controllers
                    
                         if (bookUser.ApplicationUser.Email == user.Email)
                         {
-                            var limiteTempo = DateTime.Compare(DateTime.Now, user.ReservationDate.AddMinutes(1));
+                            var limiteTempo = DateTime.Compare(DateTime.Now, user.ReservationDate.AddMinutes(10));
 
                             if (limiteTempo > 0)
                             {
