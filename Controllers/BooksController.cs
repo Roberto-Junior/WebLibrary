@@ -138,6 +138,7 @@ namespace BiblioTechA.Controllers
                         return RedirectToAction("DuplicateBook");
                 }
 
+                TempData["msg"] = "<script>alert('Livro adicionado com sucesso!');</script>";
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -213,6 +214,7 @@ namespace BiblioTechA.Controllers
                         throw;
                     }
                 }
+                TempData["msg"] = "<script>alert('Livro editado com sucesso!');</script>";
                 return RedirectToAction("Index");
             }
             return View(book);
@@ -254,6 +256,7 @@ namespace BiblioTechA.Controllers
             var book = await _context.Book.FindAsync(id);
             if(book.Reserved == "Free")
             {
+                TempData["msg"] = "<script>alert('Livro removido com sucesso!');</script>";
                 _context.Book.Remove(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
