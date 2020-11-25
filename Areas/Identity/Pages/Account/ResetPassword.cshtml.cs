@@ -29,7 +29,6 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required(ErrorMessage = "Campo obrigatório.")]
             [EmailAddress(ErrorMessage = "Email inválido.")]
             public string Email { get; set; }
 
@@ -48,7 +47,7 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
         }
 
         //public IActionResult OnGet(string code = null)
-        public IActionResult OnGet(string code = null) //public void Get(string code = null) 
+        public void Get(string code = null)
         {
             //if (code == null)
             //{
@@ -62,16 +61,12 @@ namespace BiblioTechA.Areas.Identity.Pages.Account
             //    };
             //    return Page();
             //}
-            Input = new InputModel
-            {
-                Email = TempData["UserEmail"].ToString()
-            };
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-
+            Input.Email = TempData["UserEmail"].ToString();
+            
             if (!ModelState.IsValid)
             {
                 return Page();
