@@ -146,6 +146,7 @@ namespace BiblioTechA.Controllers
             return View(ToAddBook);
         }
 
+        [Authorize(Policy = "adminmanagerpolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -178,9 +179,9 @@ namespace BiblioTechA.Controllers
         [Authorize(Policy = "adminmanagerpolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Author,Genre,PageNumbers,Description")] BookAuthorGenreForView ToEditBook)
+        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,Genre,PageNumbers,Description")] BookAuthorGenreForView ToAddBook)
         {
-            if (id != ToEditBook.Id)
+            if (id != ToAddBook.BookId) 
             {
                 return NotFound();
             }
@@ -188,18 +189,18 @@ namespace BiblioTechA.Controllers
             var book = await _context.Book
                              .Include(a => a.BookAuthor)
                              .Include(g => g.BookGenre)
-                             .FirstOrDefaultAsync(m => m.Id == id);
-
-            book.Title = ToEditBook.Title;
-            book.BookAuthor.Author = ToEditBook.Author;
-            book.BookGenre.Genre = ToEditBook.Genre;
-            book.PageNumbers = ToEditBook.PageNumbers;
-            book.Description = ToEditBook.Description;
+                             .FirstOrDefaultAsync(m => m.Id == ToAddBook.BookId);
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    book.Title = ToAddBook.Title;
+                    book.BookAuthor.Author = ToAddBook.Author;
+                    book.BookGenre.Genre = ToAddBook.Genre;
+                    book.PageNumbers = ToAddBook.PageNumbers;
+                    book.Description = ToAddBook.Description;
+
                     _context.Update(book);
                     await _context.SaveChangesAsync();
                 }
@@ -217,7 +218,7 @@ namespace BiblioTechA.Controllers
                 TempData["msg"] = "<script>alert('Livro editado com sucesso!');</script>";
                 return RedirectToAction("Index");
             }
-            return View(book);
+            return View(ToAddBook);
         }
 
         public async Task<IActionResult> Delete(int? id)
