@@ -1,6 +1,6 @@
 # Library Management Website
 
-### Login restrictions (user, admin and manager):
+### Login restrictions ("Usuário", "Administrador" and "Gerente"):
 The "Usuário" login can/has:
    - Reserve a book from a book list.
    - Cancel your reservation.
