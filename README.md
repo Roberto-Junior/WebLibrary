@@ -25,5 +25,5 @@ The "Gerente" can/has:
 ### Default behavior (Seed data):
 It was added:
 - 3 types of authorization: "Usuário", "Administrador" and "Gerente".
-- a default user with "Gerente" type authorization (Email: "gerente@hotmail.com", Senha: "123456").
+- a default user with "Gerente" type authorization (Email: "gerente@hotmail.com", Password: "123456").
 - 12 default books.
