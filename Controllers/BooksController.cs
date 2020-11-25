@@ -179,9 +179,9 @@ namespace BiblioTechA.Controllers
         [Authorize(Policy = "adminmanagerpolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,Genre,PageNumbers,Description")] BookAuthorGenreForView ToAddBook)
+        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,Genre,PageNumbers,Description")] BookAuthorGenreForView ToEditBook)
         {
-            if (id != ToAddBook.BookId) 
+            if (id != ToEditBook.BookId) 
             {
                 return NotFound();
             }
@@ -189,17 +189,17 @@ namespace BiblioTechA.Controllers
             var book = await _context.Book
                              .Include(a => a.BookAuthor)
                              .Include(g => g.BookGenre)
-                             .FirstOrDefaultAsync(m => m.Id == ToAddBook.BookId);
+                             .FirstOrDefaultAsync(m => m.Id == ToEditBook.BookId);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    book.Title = ToAddBook.Title;
-                    book.BookAuthor.Author = ToAddBook.Author;
-                    book.BookGenre.Genre = ToAddBook.Genre;
-                    book.PageNumbers = ToAddBook.PageNumbers;
-                    book.Description = ToAddBook.Description;
+                    book.Title = ToEditBook.Title;
+                    book.BookAuthor.Author = ToEditBook.Author;
+                    book.BookGenre.Genre = ToEditBook.Genre;
+                    book.PageNumbers = ToEditBook.PageNumbers;
+                    book.Description = ToEditBook.Description;
 
                     _context.Update(book);
                     await _context.SaveChangesAsync();
@@ -218,7 +218,7 @@ namespace BiblioTechA.Controllers
                 TempData["msg"] = "<script>alert('Livro editado com sucesso!');</script>";
                 return RedirectToAction("Index");
             }
-            return View(ToAddBook);
+            return View(ToEditBook);
         }
 
         public async Task<IActionResult> Delete(int? id)
